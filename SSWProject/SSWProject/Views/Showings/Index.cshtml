@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SSWProject.Models.Showing>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Street Address")
+        </th>
+        <th>
+            @Html.Label("Showing Date")
+        </th>
+        <th>
+            @Html.Label("Start Time")
+        </th>
+        <th>
+            @Html.Label("End Time")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Listing.StreetAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ShowingID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ShowingID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ShowingID })
+        </td>
+    </tr>
+}
+
+</table>

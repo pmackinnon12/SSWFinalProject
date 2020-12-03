@@ -1,0 +1,133 @@
+﻿@model SSWProject.Models.Listing
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Listing</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Agent Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Agent.FirstName)
+            @Html.DisplayFor(model => model.Agent.LastName)
+        </dd>
+
+        <dt>
+            @Html.Label("Customer Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+            @Html.DisplayFor(model => model.Customer.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Province)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Province)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Municipality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Municipality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AreaOfCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AreaOfCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfStories)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfStories)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfBeds)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfBeds)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfBaths)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfBaths)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfHeating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfHeating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsContractSigned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsContractSigned)
+        </dd>
+
+        <dd>
+            @Html.Label("Agent Contact Info")
+        </dd>
+
+        <dt>
+            @Html.DisplayFor(model => model.Agent.OfficeEmail)
+            @Html.DisplayFor(model => model.Agent.OfficePhone)
+        </dt>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ListingID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
