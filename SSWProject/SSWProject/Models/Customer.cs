@@ -63,6 +63,7 @@ namespace SSWProject.Models
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "DOB")]
+        [Range(typeof(DateTime), "1/1/2001", "1/1/1900", ErrorMessage = "You must be at least 19 years old")]
         public DateTime DOB { get; set; }
 
         public virtual ICollection<CustomerFile> Files { get; set; }

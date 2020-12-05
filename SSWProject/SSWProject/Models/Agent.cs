@@ -77,7 +77,7 @@ namespace SSWProject.Models
         [Required]
         [StringLength(6)]
         [Display(Name ="Postal Code")]
-        [RegularExpression(@"([A - Z]\d){3}")]
+        [RegularExpression(@"([A-Z]\d){3}")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Home Phone is required. Must be a valid phone number")]
@@ -110,6 +110,7 @@ namespace SSWProject.Models
         [Required]
         [DataType(DataType.Date)]
         [Display(Name ="Date of Birth")]
+        [Range(typeof(DateTime), "1/1/1900", "1/1/2001", ErrorMessage = "You must be at least 19 years old")]
         public DateTime DOB { get; set; }
 
         [Required]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -54,17 +55,22 @@ namespace SSWProject.Controllers
                 {
                     var avatar = new AgentFile
                     {
-                        FileName = System.IO.Path.GetFileName(upload.FileName),
+                        FileName = Path.GetFileName(upload.FileName),
                         FileType = FileType.Avatar,
                         ContentType = upload.ContentType
                     };
-                    using(var reader = new System.IO.BinaryReader(upload.InputStream))
+                    using(var reader = new BinaryReader(upload.InputStream))
                     {
                         avatar.Content = reader.ReadBytes(upload.ContentLength);
                     }
-                    //avatar.ListingID = 0;
-                    //avatar.CustomerID = 0;
+                    string targetDir = @"../Content/images";
+                    string fileDir = $@"C:Users/Owner/OneDrive/Pictures\{upload.FileName}";
+                    var path = Path.Combine(Server.MapPath(targetDir), Path.GetFileName(upload.FileName));
+                    //System.Drawing.Image img = System.Drawing.Image.FromStream(upload.InputStream);
+                    //System.IO.
+                    //System.IO.File.Copy(fileDir, path);
                     agent.files = new List<AgentFile> { avatar };
+                    upload.SaveAs(path);
                 }
                 db.Agents.Add(agent);
                 db.SaveChanges();
