@@ -71,6 +71,26 @@ namespace SSWProject.Controllers
                     //System.IO.File.Copy(fileDir, path);
                     agent.files = new List<AgentFile> { avatar };
                     upload.SaveAs(path);
+                    
+                }
+                foreach (var a in db.Agents)
+                {
+                    if (a.Username == agent.Username)
+                    {
+                        ModelState.AddModelError("Username", "Username already taken");
+                    }
+                    if (a.SIN == agent.SIN)
+                    {
+                        ModelState.AddModelError("SIN", "SIN already exists");
+                    }
+                    if (a.OfficeEmail == agent.OfficeEmail)
+                    {
+                        ModelState.AddModelError("OfficeEmail", "Email already in use");
+                    }
+                    if (!ModelState.IsValid)
+                    {
+                        return View(agent);
+                    }
                 }
                 db.Agents.Add(agent);
                 db.SaveChanges();

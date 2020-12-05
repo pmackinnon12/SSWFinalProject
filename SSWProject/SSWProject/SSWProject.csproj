@@ -320,6 +320,7 @@
     <Content Include="Content\images\prop7.jpg" />
     <Content Include="Content\images\prop8.jpg" />
     <Content Include="Content\images\prop9.jpg" />
+    <Content Include="Content\images\randomgirl.jpg" />
     <Content Include="Content\images\randomguy.jpg" />
     <Content Include="Content\Styles.css" />
     <Content Include="favicon.ico" />
