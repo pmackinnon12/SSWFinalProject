@@ -10,11 +10,14 @@ using SSWProject.Models;
 
 namespace SSWProject.Controllers
 {
+    [Authorize]
     public class ShowingsController : Controller
     {
+
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Showings
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var showings = db.Showings.Include(s => s.Listing);
@@ -22,6 +25,7 @@ namespace SSWProject.Controllers
         }
 
         // GET: Showings/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

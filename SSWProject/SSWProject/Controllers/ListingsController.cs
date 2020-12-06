@@ -10,18 +10,105 @@ using SSWProject.Models;
 
 namespace SSWProject.Controllers
 {
+    [Authorize]
     public class ListingsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Listings
-        public ActionResult Index()
+        [AllowAnonymous]
+        public ActionResult Index(string citySearch, string provinceSearch, string numOfBathSearch, string numOfBedsSearch, string sortOrder)
         {
+            ViewBag.CitySortParm = String.IsNullOrEmpty(citySearch) ? "City" : "";
+            ViewBag.ProvinceSortParm = String.IsNullOrEmpty(citySearch) ? "Province" : "";
+            ViewBag.NumOfBathSortParm = String.IsNullOrEmpty(citySearch) ? "NumOfBaths" : "";
+            ViewBag.NumOfBedSortParm = String.IsNullOrEmpty(citySearch) ? "NumOfBeds" : "";
+            ViewBag.ViewOrderSortParm = String.IsNullOrEmpty(citySearch) ? "ViewOrder" : "";
+
             var listings = db.Listings.Include(l => l.Agent).Include(l => l.Customer);
+
+            if (!String.IsNullOrEmpty(citySearch))
+            {
+                listings = listings.Where(l => l.Municipality.ToUpper().Contains(
+                    citySearch.ToUpper()));
+            }
+            if (!String.IsNullOrEmpty(provinceSearch))
+            {
+                var province = Provinces.NB;
+
+                switch (provinceSearch)
+                {
+                    case "NB":
+                        province = Provinces.NB;
+                        break;
+                    case "NS":
+                        province = Provinces.NS;
+                        break;
+                    case "PEI":
+                        province = Provinces.PEI;
+                        break;
+                    case "ON":
+                        province = Provinces.ON;
+                        break;
+                    case "QC":
+                        province = Provinces.QC;
+                        break;
+                    case "MA":
+                        province = Provinces.MA;
+                        break;
+                    case "BC":
+                        province = Provinces.BC;
+                        break;
+                    case "AL":
+                        province = Provinces.AL;
+                        break;
+                    case "SK":
+                        province = Provinces.SK;
+                        break;
+                    case "YU":
+                        province = Provinces.YU;
+                        break;
+                    case "NU":
+                        province = Provinces.NU;
+                        break;
+                    case "NWT":
+                        province = Provinces.NWT;
+                        break;
+                    case "NF":
+                        province = Provinces.NF;
+                        break;
+                }
+
+                listings = listings.Where(l => l.Province == province);
+            }
+            if (!String.IsNullOrEmpty(numOfBathSearch))
+            {
+                listings = listings.Where(l => l.NumberOfBaths.ToString().Contains(
+                    numOfBathSearch.ToUpper()));
+            }
+            if (!String.IsNullOrEmpty(numOfBedsSearch))
+            {
+                listings = listings.Where(l => l.NumberOfBeds.ToString().Contains(
+                    numOfBedsSearch.ToUpper()));
+            }
+            switch (sortOrder)
+            {
+                case "Ascending":
+                    listings = listings.OrderBy(l => l.SalesPrice) ;
+                    break;
+                case "Descending":
+                    listings = listings.OrderByDescending(l => l.SalesPrice);
+                    break;
+                default:
+                    listings = listings.OrderBy(l => l.ListingID);
+                    break;
+            }
+            
             return View(listings.ToList());
         }
 
         // GET: Listings/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

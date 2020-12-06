@@ -10,16 +10,19 @@ using SSWProject.Models;
 
 namespace SSWProject.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Customers
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Customers.ToList());
         }
 
+        [AllowAnonymous]
         // GET: Customers/Details/5
         public ActionResult Details(int? id)
         {

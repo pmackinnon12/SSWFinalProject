@@ -320,8 +320,11 @@
     <Content Include="Content\images\prop7.jpg" />
     <Content Include="Content\images\prop8.jpg" />
     <Content Include="Content\images\prop9.jpg" />
-    <Content Include="Content\images\randomgirl.jpg" />
+    <Resource Include="Content\images\randomgirl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Content\images\randomguy.jpg" />
+    <Content Include="Content\images\randomguy2.jpg" />
     <Content Include="Content\Styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

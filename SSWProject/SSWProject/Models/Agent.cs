@@ -115,6 +115,7 @@ namespace SSWProject.Models
 
         [Required]
         [Display(Name ="Social Insurance Number")]
+        [RegularExpression(@"^(\d{3}-\d{3}-\d{3})|(\d{9})$")]
         public int SIN { get; set; }
 
         public virtual ICollection<AgentFile> files { get; set; }

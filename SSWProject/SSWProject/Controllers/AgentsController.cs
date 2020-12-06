@@ -11,17 +11,20 @@ using SSWProject.Models;
 
 namespace SSWProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AgentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Agents
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Agents.ToList());
         }
 
         // GET: Agents/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

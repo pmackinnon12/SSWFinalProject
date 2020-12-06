@@ -10,44 +10,56 @@
 <p>
     @Html.ActionLink("Create New Listing", "Create")
 </p>
-@foreach(var item in Model)
+@using (Html.BeginForm())
 {
-<div class="gallery">
-    @if (item.Files.Any(f => f.FileType == FileType.Avatar))
-    {
-        <picture>
-            <source media='(min-width: 401px)'
-                    srcset='images/@item.Files.First(f => f.FileType == FileType.Avatar).FileName' />
-            <source media='(max-width: 400px)'
-                    srcset='images/@item.Files.First(f => f.FileType == FileType.Avatar).FileName' />
-            <img src='SSWProject/content/images/@item.Files.First(f => f.FileType == FileType.Avatar).FileName' alt="image-not-available" style="width:70%;" />
-        </picture>
-    }
-<table class="table-index">
-    <tr>
-        <td>
-            $@Html.DisplayFor(modelItem => item.SalesPrice)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StreetAddress)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Municipality)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ListingID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ListingID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ListingID })
-        </td>
-    </tr>
-</table>
-</div>
+<p>
+    Province: @Html.TextBox("provinceSearch")
+    City: @Html.TextBox("citySearch")
+    Number of Beds: @Html.TextBox("numbOfBedSearch")
+    Number of Baths: @Html.TextBox("numOfBedSearch")
+    View Order: @Html.TextBox("sortOrder")
+    <input type="submit" value="Search" />
+</p>
+}
+@foreach (var item in Model)
+{
+
+    <div class="gallery">
+        @if (item.Files.Any(f => f.FileType == FileType.Avatar))
+        {
+            <picture>
+                <source media='(min-width: 401px)'
+                        srcset='images/@item.Files.First(f => f.FileType == FileType.Avatar).FileName' />
+                <source media='(max-width: 400px)'
+                        srcset='images/@item.Files.First(f => f.FileType == FileType.Avatar).FileName' />
+                <img src='SSWProject/content/images/@item.Files.First(f => f.FileType == FileType.Avatar).FileName' alt="image-not-available" style="width:70%;" />
+            </picture>
+        }
+        <table class="table-index">
+            <tr>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.SalesPrice)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StreetAddress)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Municipality)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ListingID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ListingID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ListingID })
+                </td>
+            </tr>
+        </table>
+    </div>
 }
 @**
     <table class="table-index">
@@ -84,7 +96,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Municipality)
                 </td>
-                
+
             </tr>
         }
 
