@@ -8,6 +8,8 @@ namespace SSWProject.Models
 {
     public class Showing
     {
+        private static string maxDate = DateTime.Now.Date.AddDays(14).ToString();
+        private static string MinDate = DateTime.Now.AddDays(1).ToString();
         [Required]
         [Key]
         public int ShowingID { get; set; }

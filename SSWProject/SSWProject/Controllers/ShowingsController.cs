@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using SSWProject.Models;
@@ -21,6 +22,8 @@ namespace SSWProject.Controllers
         public ActionResult Index()
         {
             var showings = db.Showings.Include(s => s.Listing);
+            DateTime todaysDate = DateTime.Now.Date;
+            showings = showings.Where(s => s.ShowingDate <= todaysDate);
             return View(showings.ToList());
         }
 
@@ -58,6 +61,8 @@ namespace SSWProject.Controllers
             {
                 db.Showings.Add(showing);
                 db.SaveChanges();
+                string email = User.Identity.Name;
+                sendConfirmationEmail(User.Identity.Name);
                 return RedirectToAction("Index");
             }
 
@@ -84,7 +89,7 @@ namespace SSWProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ShowingID,LisitngID,ShowingDate,StartTime,EndTime")] Showing showing)
+        public ActionResult Edit([Bind(Include = "ShowingID,ListingID,ShowingDate,StartTime,EndTime")] Showing showing)
         {
             if (ModelState.IsValid)
             {
@@ -128,6 +133,23 @@ namespace SSWProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected void sendConfirmationEmail(string agentEmail)
+        {
+            MailMessage mailMessage = new MailMessage();
+
+            mailMessage.To.Add(agentEmail);
+
+            mailMessage.From = new MailAddress("admin@YETI.ca");
+            mailMessage.Subject = "Showing Confirmation";
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Body = "<h2>Showing has successfully been saved</h2>";
+
+            SmtpClient client = new SmtpClient("localhost");
+            client.Send(mailMessage);
+
+            return;
         }
     }
 }

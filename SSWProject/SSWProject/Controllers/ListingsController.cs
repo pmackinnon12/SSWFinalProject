@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using SSWProject.Models;
@@ -103,6 +104,7 @@ namespace SSWProject.Controllers
                     listings = listings.OrderBy(l => l.ListingID);
                     break;
             }
+
             
             return View(listings.ToList());
         }
@@ -156,6 +158,7 @@ namespace SSWProject.Controllers
                 }
                 db.Listings.Add(listing);
                 db.SaveChanges();
+                sendConfirmationEmail(User.Identity.Name);
                 return RedirectToAction("Index");
             }
 
@@ -246,6 +249,23 @@ namespace SSWProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected void sendConfirmationEmail(string agentEmail)
+        {
+            MailMessage mailMessage = new MailMessage();
+
+            mailMessage.To.Add(agentEmail);
+
+            mailMessage.From = new MailAddress("admin@YETI.ca");
+            mailMessage.Subject = "Showing Confirmation";
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Body = "<h2>Showing has successfully been saved</h2>";
+
+            SmtpClient client = new SmtpClient("localhost");
+            client.Send(mailMessage);
+
+            return;
         }
     }
 }
